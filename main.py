@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from models import LogisticRegression
 
-dataset='../data/iris.csv'
+dataset='iris.csv'
 df=pd.read_csv(dataset)
 y=df['label'].values
 df.drop('label', axis=1, inplace=True)

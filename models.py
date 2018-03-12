@@ -159,3 +159,46 @@ class ShallowNeuralNet:
 
 
 
+class DeepNeuralNet:
+	'Neural Network with n hidden layers for binary classification'
+	def __init__(self,X_train,X_test,y_train,y_test,h_layers,n_epochs=1000,alpha=0.03):
+		self.X_train=X_train
+		self.X_test=X_test
+		self.y_test=y_test
+		self.y_train=y_train
+		self.n_epochs=n_epochs
+		self.alpha=alpha
+		self.h_layers=h_layers # Hidden layer is a dict with Layer number as key & number of neurons as val.
+		self.hl=list(self.h_layers.keys())
+		# intializing weights and biases of all layers
+		self.W=[np.random.randn(self.h_layers[self.hl[0]],len(self.X_train))*0.01]
+		self.b=[np.zeros((self.h_layers[self.hl[0]],1))]
+		for i in range(len(self.hl)-1):
+			self.W.append(np.random.randn(self.h_layers[self.hl[i+1]],self.h_layers[self.hl[i]])*0.01)		
+			self.b.append(np.zeros((self.h_layers[self.hl[i+1]],1)))
+		self.W.append(np.random.randn(1,self.h_layers[self.hl[-1]])*0.01)
+		self.b.append(np.zeros((1,1)))
+		self.costs=[]
+
+	def sigmoid(self,z):
+		'''sigmoid activation Function'''
+		return(1/(1+np.exp(-z)))
+
+	def tanh(self,z):	
+		'''tanh activation function'''
+		return((np.exp(z)-np.exp(-z))/(np.exp(z)+np.exp(-z)))
+	
+	def forward_propogate(self):
+		activations=[]
+		Z=np.dot(self.W[0],self.X_train)+self.b[0]
+		A=self.tanh(Z)
+		activations.append(A)
+		for i in range(len(self.hl)-1):
+			Z=np.dot(self.W[i+1],A)+self.b[i+1]
+			A=self.tanh(Z)
+			activations.append(A)
+		Z=np.dot(self.W[-1],self.X_train)+self.b[-1]
+		A=self.sigmoid(Z)
+		activations.append(A)
+		print(activations)
+		return activations

@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from models import LogisticRegression,ShallowNeuralNet,DeepNeuralNet
 
 # Data extraction and test-train(dev) split 
-dataset='iris.csv'
+dataset='/MLnDL/datasets/iris.csv'
 df=pd.read_csv(dataset)
 y=df['label'].values
 df.drop('label', axis=1, inplace=True)

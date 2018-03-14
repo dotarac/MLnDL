@@ -1,2 +1,2 @@
-# ScratchDL
-Implementation of Neural Nets from scratch
+# MLnDL
+This Repository contains my coding explorations in the the field of Machine Learning and Deep Learning.
